@@ -1,0 +1,26 @@
+Moved viewportToWorld() and worldToViewport() to Viewport class because of Viewport object in parameter
+Moved shift() and contains() to Viewport class because they used many Viewport objects
+Moved getImageList() and loadImages() to ImageStore class because they use many ImageStore objects
+Moved processImageLine() and getImages() to ImageStore class because they use a map identical to an instance field in that class
+Moved setAlpha() to ImageStore class because it is only called in another ImageStore function
+Moved COLOR_MASK, KEYED_IMAGE_MIN, KEYED_RED_IDX, KEYED_GREEN_IDX, and KEYED_BLUE_IDX to ImageStore class because of multiple usages in that class
+Moved getAnimationPeriod() and nextImage() to Entity class because the only parameter is an Entity object
+Moved drawBackground(), drawEntities(), and drawViewport() to WorldView class because the only parameter is a WorldView object
+Moved shiftView() into WorldView class because it has a WorldView object in parameter
+Moved executeAction(), executeAnimationAction(), and executeActivityAction() to Action class because they use many Action objects
+Moved updateOnTime(), removePendingEvent(), unscheduleAllEvents(), and scheduleEvent() because they use many EventScheduler objects
+Moved getBackgroundImage(), getBackgroundCell(), setBackgroundCell(), withinBounds(), isOccupied(), getOccupant(), getOccupancyCell(),
+setOccupancyCell(), and removeEntityAt() to WorldModel class because they compare a WorldModel object with a Point object
+Moved all "parse" files to WorldModel class because they are all mainly comprised of WorldModel objects
+Moved tryAddEntity(), addEntity(), moveEntity(), removeEntity(), and load() to WorldModel class because they used many WorldModel objects
+Moved SAPLING, DUDE, FAIRY, TREE, OBSTACLE, HOUSE, and STUMP constants to WorldModel class because they are used many times many times in the class
+Moved scheduleActions() and all "execute" and "transform" methods to Entity class because they are mainly comprised of Entity objects
+Moved createAnimationAction(), createActivityAction(), createDudeFull(), createStump(), createTree(), createSapling(), and createDudeNotFull(),
+getIntFromRange(), and getNumFromRange() to Entity class because most usages of the method occur in that class
+Moved TREE and SAPLING constants to Entity class because they are only used in that class
+Moved createFairy(), createObstacle(), and createHouse() to WorldModel class because those methods are only used in that class
+Moved tryAddEntity(), findNearest(), nearestEntity(), distanceSquared(), and getCurrentImage() to WorldModel class because they are called in that class
+Moved moveToFairy(), moveToNotFull(), moveToFull(), nextPositionFairy(), and nextPositionDude() to Entity class because they mainly used
+Entity objects and they were called many times in that class
+Moved adjacent() to Entity class because it is only used in that class
+For the methods that occur in multiple classes, I chose the class it occurs in most and kept it static to make it available to other classes
