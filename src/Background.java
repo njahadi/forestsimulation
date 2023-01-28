@@ -6,7 +6,7 @@ import processing.core.PImage;
  * Represents a background for the 2D world.
  */
 public final class Background {
-    private String id;
+    private final String id;
     public List<PImage> images;
     public int imageIndex;
 

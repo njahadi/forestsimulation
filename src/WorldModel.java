@@ -39,6 +39,10 @@ public final class WorldModel {
     private static final String HOUSE_KEY = "house";
     private static final int HOUSE_NUM_PROPERTIES = 0;
     private static final int PROPERTY_KEY = 0;
+    public static final int ENTITY_NUM_PROPERTIES = 4;
+    public static final int PROPERTY_ID = 1;
+    public static final int PROPERTY_COL = 2;
+    public static final int PROPERTY_ROW = 3;
 
     public WorldModel() {
 
@@ -209,14 +213,14 @@ public final class WorldModel {
     }
 
     private void parseEntity(String line, ImageStore imageStore) {
-        String[] properties = line.split(" ", Functions.ENTITY_NUM_PROPERTIES + 1);
-        if (properties.length >= Functions.ENTITY_NUM_PROPERTIES) {
+        String[] properties = line.split(" ", ENTITY_NUM_PROPERTIES + 1);
+        if (properties.length >= ENTITY_NUM_PROPERTIES) {
             String key = properties[PROPERTY_KEY];
-            String id = properties[Functions.PROPERTY_ID];
-            Point pt = new Point(Integer.parseInt(properties[Functions.PROPERTY_COL]), Integer.parseInt(properties[Functions.PROPERTY_ROW]));
+            String id = properties[PROPERTY_ID];
+            Point pt = new Point(Integer.parseInt(properties[PROPERTY_COL]), Integer.parseInt(properties[PROPERTY_ROW]));
 
-            properties = properties.length == Functions.ENTITY_NUM_PROPERTIES ?
-                    new String[0] : properties[Functions.ENTITY_NUM_PROPERTIES].split(" ");
+            properties = properties.length == ENTITY_NUM_PROPERTIES ?
+                    new String[0] : properties[ENTITY_NUM_PROPERTIES].split(" ");
 
             switch (key) {
                 case OBSTACLE_KEY -> this.parseObstacle(properties, pt, id, imageStore);
