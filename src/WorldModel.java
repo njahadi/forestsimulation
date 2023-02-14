@@ -8,11 +8,11 @@ import java.util.*;
  * location in the world, and the entities that populate the world.
  */
 public final class WorldModel {
-    public int numRows;
-    public int numCols;
+    private int numRows;
+    private int numCols;
     private Background[][] background;
     private Entity[][] occupancy;
-    public Set<Entity> entities;
+    private Set<Entity> entities;
 
     public static final String SAPLING_KEY = "sapling";
     private static final int SAPLING_HEALTH = 0;
@@ -61,23 +61,23 @@ public final class WorldModel {
     }
 
     private Background getBackgroundCell(Point pos) {
-        return this.background[pos.y][pos.x];
+        return this.background[pos.getY()][pos.getX()];
     }
 
     public void setBackgroundCell(Point pos, Background background) {
-        this.background[pos.y][pos.x] = background;
+        this.background[pos.getY()][pos.getX()] = background;
     }
 
     public Optional<PImage> getBackgroundImage(Point pos) {
         if (this.withinBounds(pos)) {
-            return Optional.of(getCurrentImage(this.getBackgroundCell(pos)));
+            return Optional.of(this.getBackgroundCell(pos).getCurrentImage());
         } else {
             return Optional.empty();
         }
     }
 
     private boolean withinBounds(Point pos) {
-        return pos.y >= 0 && pos.y < this.numRows && pos.x >= 0 && pos.x < this.numCols;
+        return pos.getY() >= 0 && pos.getY() < this.numRows && pos.getX() >= 0 && pos.getX() < this.numCols;
     }
 
     public boolean isOccupied(Point pos) {
@@ -85,11 +85,11 @@ public final class WorldModel {
     }
 
     public Entity getOccupancyCell(Point pos) {
-        return this.occupancy[pos.y][pos.x];
+        return this.occupancy[pos.getY()][pos.getX()];
     }
 
     private void setOccupancyCell(Point pos, Entity entity) {
-        this.occupancy[pos.y][pos.x] = entity;
+        this.occupancy[pos.getY()][pos.getX()] = entity;
     }
 
     public Optional<Entity> getOccupant(Point pos) {
@@ -106,7 +106,7 @@ public final class WorldModel {
 
             /* This moves the entity just outside of the grid for
              * debugging purposes. */
-            entity.position = new Point(-1, -1);
+            entity.setPosition(new Point(-1, -1));
             this.entities.remove(entity);
             this.setOccupancyCell(pos, null);
         }
@@ -238,7 +238,7 @@ public final class WorldModel {
     }
 
     private void tryAddEntity(Entity entity) {
-        if (this.isOccupied(entity.position)) {
+        if (this.isOccupied(entity.getPosition())) {
             // arguably the wrong type of exception, but we are not
             // defining our own exceptions yet
             throw new IllegalArgumentException("position occupied");
@@ -248,26 +248,26 @@ public final class WorldModel {
     }
 
     public void addEntity(Entity entity) {
-        if (this.withinBounds(entity.position)) {
-            this.setOccupancyCell(entity.position, entity);
+        if (this.withinBounds(entity.getPosition())) {
+            this.setOccupancyCell(entity.getPosition(), entity);
             this.entities.add(entity);
         }
     }
 
     public void moveEntity(EventScheduler scheduler, Entity entity, Point pos) {
-        Point oldPos = entity.position;
+        Point oldPos = entity.getPosition();
         if (this.withinBounds(pos) && !pos.equals(oldPos)) {
             this.setOccupancyCell(oldPos, null);
             Optional<Entity> occupant = this.getOccupant(pos);
             occupant.ifPresent(target -> this.removeEntity(scheduler, target));
             this.setOccupancyCell(pos, entity);
-            entity.position = pos;
+            entity.setPosition(pos);
         }
     }
 
     public void removeEntity(EventScheduler scheduler, Entity entity) {
         scheduler.unscheduleAllEvents(entity);
-        this.removeEntityAt(entity.position);
+        this.removeEntityAt(entity.getPosition());
     }
 
     public void load(Scanner saveFile, ImageStore imageStore, Background defaultBackground){
@@ -299,7 +299,7 @@ public final class WorldModel {
         List<Entity> ofType = new LinkedList<>();
         for (EntityKind kind : kinds) {
             for (Entity entity : this.entities) {
-                if (entity.kind == kind) {
+                if (entity.getEntityKind() == kind) {
                     ofType.add(entity);
                 }
             }
@@ -313,10 +313,10 @@ public final class WorldModel {
             return Optional.empty();
         } else {
             Entity nearest = entities.get(0);
-            int nearestDistance = distanceSquared(nearest.position, pos);
+            int nearestDistance = distanceSquared(nearest.getPosition(), pos);
 
             for (Entity other : entities) {
-                int otherDistance = distanceSquared(other.position, pos);
+                int otherDistance = distanceSquared(other.getPosition(), pos);
 
                 if (otherDistance < nearestDistance) {
                     nearest = other;
@@ -329,19 +329,20 @@ public final class WorldModel {
     }
 
     private int distanceSquared(Point p1, Point p2) {
-        int deltaX = p1.x - p2.x;
-        int deltaY = p1.y - p2.y;
+        int deltaX = p1.getX() - p2.getX();
+        int deltaY = p1.getY() - p2.getY();
 
         return deltaX * deltaX + deltaY * deltaY;
     }
 
-    public static PImage getCurrentImage(Object object) {
-        if (object instanceof Background background) {
-            return background.images.get(background.imageIndex);
-        } else if (object instanceof Entity entity) {
-            return entity.images.get(entity.imageIndex % entity.images.size());
-        } else {
-            throw new UnsupportedOperationException(String.format("getCurrentImage not supported for %s", object));
-        }
+    public int getNumRows(){
+        return this.numRows;
     }
+    public int getNumCols(){
+        return this.numCols;
+    }
+    public Set<Entity> getEntities(){
+        return this.entities;
+    }
+
 }

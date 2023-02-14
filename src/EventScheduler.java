@@ -6,7 +6,7 @@ import java.util.*;
 public final class EventScheduler {
     private final PriorityQueue<Event> eventQueue;
     private final Map<Entity, List<Event>> pendingEvents;
-    public double currentTime;
+    private double currentTime;
 
     public EventScheduler() {
         this.eventQueue = new PriorityQueue<>(new EventComparator());
@@ -39,7 +39,7 @@ public final class EventScheduler {
     }
 
     private void removePendingEvent(Event event) {
-        List<Event> pending = this.pendingEvents.get(event.entity);
+        List<Event> pending = this.pendingEvents.get(event.getEntity());
 
         if (pending != null) {
             pending.remove(event);
@@ -48,12 +48,15 @@ public final class EventScheduler {
 
     public void updateOnTime(double time) {
         double stopTime = this.currentTime + time;
-        while (!this.eventQueue.isEmpty() && this.eventQueue.peek().time <= stopTime) {
+        while (!this.eventQueue.isEmpty() && this.eventQueue.peek().getTime() <= stopTime) {
             Event next = this.eventQueue.poll();
             this.removePendingEvent(next);
-            this.currentTime = next.time;
-            next.action.executeAction(this);
+            this.currentTime = next.getTime();
+            next.getAction().executeAction(this);
         }
         this.currentTime = stopTime;
+    }
+    public double getCurrentTime(){
+        return this.currentTime;
     }
 }

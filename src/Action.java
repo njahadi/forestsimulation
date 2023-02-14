@@ -32,14 +32,14 @@ public final class Action {
     }
 
     private void executeActivityAction(EventScheduler scheduler) {
-        switch (this.entity.kind) {
+        switch (this.entity.getEntityKind()) {
             case SAPLING -> this.entity.executeSaplingActivity(this.world, this.imageStore, scheduler);
             case TREE -> this.entity.executeTreeActivity(this.world, this.imageStore, scheduler);
             case FAIRY -> this.entity.executeFairyActivity(this.world, this.imageStore, scheduler);
             case DUDE_NOT_FULL -> this.entity.executeDudeNotFullActivity(this.world, this.imageStore, scheduler);
             case DUDE_FULL -> this.entity.executeDudeFullActivity(this.world, this.imageStore, scheduler);
             default ->
-                    throw new UnsupportedOperationException(String.format("executeActivityAction not supported for %s", this.entity.kind));
+                    throw new UnsupportedOperationException(String.format("executeActivityAction not supported for %s", this.entity.getEntityKind()));
         }
     }
 }
