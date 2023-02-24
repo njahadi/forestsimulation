@@ -133,7 +133,7 @@ public final class WorldModel {
 
     private void parseFairy(String[] properties, Point pt, String id, ImageStore imageStore) {
         if (properties.length == FAIRY_NUM_PROPERTIES) {
-            Entity entity = createFairy(id, pt, Double.parseDouble(properties[FAIRY_ACTION_PERIOD]), Double.parseDouble(properties[FAIRY_ANIMATION_PERIOD]), imageStore.getImageList(FAIRY_KEY));
+            Entity entity = Entity.createFairy(id, pt, Double.parseDouble(properties[FAIRY_ACTION_PERIOD]), Double.parseDouble(properties[FAIRY_ANIMATION_PERIOD]), imageStore.getImageList(FAIRY_KEY));
             this.tryAddEntity(entity);
         }else{
             throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", FAIRY_KEY, FAIRY_NUM_PROPERTIES));
@@ -151,7 +151,7 @@ public final class WorldModel {
 
     private void parseObstacle(String[] properties, Point pt, String id, ImageStore imageStore) {
         if (properties.length == OBSTACLE_NUM_PROPERTIES) {
-            Entity entity = createObstacle(id, pt, Double.parseDouble(properties[OBSTACLE_ANIMATION_PERIOD]), imageStore.getImageList(OBSTACLE_KEY));
+            Entity entity = Entity.createObstacle(id, pt, Double.parseDouble(properties[OBSTACLE_ANIMATION_PERIOD]), imageStore.getImageList(OBSTACLE_KEY));
             this.tryAddEntity(entity);
         }else{
             throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", OBSTACLE_KEY, OBSTACLE_NUM_PROPERTIES));
@@ -160,7 +160,7 @@ public final class WorldModel {
 
     private void parseHouse(String[] properties, Point pt, String id, ImageStore imageStore) {
         if (properties.length == HOUSE_NUM_PROPERTIES) {
-            Entity entity = createHouse(id, pt, imageStore.getImageList(HOUSE_KEY));
+            Entity entity = Entity.createHouse(id, pt, imageStore.getImageList(HOUSE_KEY));
             this.tryAddEntity(entity);
         }else{
             throw new IllegalArgumentException(String.format("%s requires %d properties when parsing", HOUSE_KEY, HOUSE_NUM_PROPERTIES));
@@ -281,18 +281,6 @@ public final class WorldModel {
             this.occupancy = new Entity[this.numRows][this.numCols];
             this.entities = new HashSet<>();
         }
-    }
-
-    private Entity createHouse(String id, Point position, List<PImage> images) {
-        return new Entity(EntityKind.HOUSE, id, position, images, 0, 0, 0, 0, 0, 0);
-    }
-
-    private Entity createObstacle(String id, Point position, double animationPeriod, List<PImage> images) {
-        return new Entity(EntityKind.OBSTACLE, id, position, images, 0, 0, 0, animationPeriod, 0, 0);
-    }
-
-    private Entity createFairy(String id, Point position, double actionPeriod, double animationPeriod, List<PImage> images) {
-        return new Entity(EntityKind.FAIRY, id, position, images, 0, 0, actionPeriod, animationPeriod, 0, 0);
     }
 
     public Optional<Entity> findNearest(Point pos, List<EntityKind> kinds) {
