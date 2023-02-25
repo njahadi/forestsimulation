@@ -27,7 +27,7 @@ public final class Action {
         this.entity.nextImage();
 
         if (this.repeatCount != 1) {
-            scheduler.scheduleEvent(this.entity, this.entity.createAnimationAction(Math.max(this.repeatCount - 1, 0)), this.entity.getAnimationPeriod());
+            scheduler.scheduleEvent(this.entity, ((Animate)this.entity).createAnimationAction(Math.max(this.repeatCount - 1, 0)), ((Animate)this.entity).getAnimationPeriod());
         }
     }
 

@@ -2,9 +2,9 @@ import processing.core.PImage;
 import java.util.*;
 
 public class Stump implements Entity{
-    private String id;
+    private final String id;
     private Point position;
-    private List<PImage> images;
+    private final List<PImage> images;
     private int imageIndex;
 
     public Stump(String id, Point position, List<PImage> images){
@@ -19,6 +19,9 @@ public class Stump implements Entity{
     }
     public Point getPosition(){
         return this.position;
+    }
+    public void setPosition(Point point){
+        this.position = point;
     }
     public List<PImage> getImages(){
         return this.images;
