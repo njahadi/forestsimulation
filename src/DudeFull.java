@@ -8,13 +8,14 @@ public class DudeFull extends Dude{
         super(id, position, images, actionPeriod, animationPeriod, resourceLimit);
     }
 
-    public void transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore){
+    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore){
         Entity dude = new DudeNotFull(this.getId(), this.getPosition(), this.getImages(), this.getActionPeriod(), this.getAnimationPeriod(), this.getResourceLimit());
 
         world.removeEntity(scheduler, this);
 
         world.addEntity(dude);
         ((ExecuteActivity)dude).scheduleActions(scheduler, world, imageStore);
+        return false;
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler){

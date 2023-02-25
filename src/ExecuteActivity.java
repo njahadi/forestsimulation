@@ -52,10 +52,10 @@ public abstract class ExecuteActivity implements Animate{
     }
 
     public Action createAnimationAction(int repeatCount) {
-        return new Action(ActionKind.ANIMATION, this, null, null, repeatCount);
+        return new Animation(this, repeatCount);
     }
     public Action createActivityAction(WorldModel world, ImageStore imageStore) {
-        return new Action(ActionKind.ACTIVITY, this, world, imageStore, 0);
+        return new Activity(this, world, imageStore);
     }
 
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){

@@ -46,7 +46,7 @@ public class Obstacle implements Animate{
     }
 
     public Action createAnimationAction(int repeatCount) {
-        return new Action(ActionKind.ANIMATION, this, null, null, repeatCount);
+        return new Animation(this, repeatCount);
     }
 
     public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){

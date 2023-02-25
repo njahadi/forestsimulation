@@ -83,7 +83,7 @@ public final class VirtualWorld extends PApplet {
             if(entity instanceof Obstacle){
                 ((Obstacle)entity).scheduleActions(scheduler, world, imageStore);
             }
-            else {
+            else if(!(entity instanceof House) && !(entity instanceof Stump)) {
                 ((ExecuteActivity) entity).scheduleActions(scheduler, world, imageStore);
             }
         }
