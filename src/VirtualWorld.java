@@ -73,7 +73,12 @@ public final class VirtualWorld extends PApplet {
         Optional<Entity> entityOptional = world.getOccupant(pressed);
         if (entityOptional.isPresent()) {
             Entity entity = entityOptional.get();
-            System.out.println(entity.getId() + ": " + entity.getClass() + " : " + ((Plant)entity).getHealth());
+            if(entity instanceof Plant){
+                System.out.println(entity.getId() + ": " + entity.getClass() + " : " + ((Plant)entity).getHealth());
+            }
+            else{
+                System.out.println(entity.getId() + ": " + entity.getClass() + " : " + 0);
+            }
         }
 
     }
