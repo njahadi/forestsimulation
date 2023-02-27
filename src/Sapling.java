@@ -2,7 +2,7 @@ import processing.core.PImage;
 import java.util.*;
 
 public class Sapling extends Plant{
-    private int healthLimit;
+    private final int healthLimit;
     private static final double TREE_ANIMATION_MAX = 0.600;
     private static final double TREE_ANIMATION_MIN = 0.050;
     private static final double TREE_ACTION_MAX = 1.400;
@@ -20,6 +20,7 @@ public class Sapling extends Plant{
     public int getHealthLimit(){
         return this.healthLimit;
     }
+
     private int getIntFromRange(int max, int min) {
         Random rand = new Random();
         return min + rand.nextInt(max-min);
@@ -39,7 +40,7 @@ public class Sapling extends Plant{
 
             return true;
         } else if (this.getHealth() >= this.healthLimit) {
-            Entity tree = new Tree(WorldModel.TREE_KEY + "_" + this.getId(), this.getPosition(), imageStore.getImageList(WorldModel.TREE_KEY), getNumFromRange(TREE_ACTION_MAX, TREE_ACTION_MIN), getNumFromRange(TREE_ANIMATION_MAX, TREE_ANIMATION_MIN), getIntFromRange(TREE_HEALTH_MAX, TREE_HEALTH_MIN));
+            Entity tree = new Tree(WorldModel.TREE_KEY + "_" + this.getId(), this.getPosition(), imageStore.getImageList(WorldModel.TREE_KEY), this.getNumFromRange(TREE_ACTION_MAX, TREE_ACTION_MIN), this.getNumFromRange(TREE_ANIMATION_MAX, TREE_ANIMATION_MIN), this.getIntFromRange(TREE_HEALTH_MAX, TREE_HEALTH_MIN));
 
             world.removeEntity(scheduler, this);
 

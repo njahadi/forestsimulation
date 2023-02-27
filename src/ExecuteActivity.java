@@ -33,6 +33,9 @@ public abstract class ExecuteActivity implements Animate{
     public int getImageIndex(){
         return this.imageIndex;
     }
+    public void setImageIndex(){
+        this.imageIndex = this.imageIndex + 1;
+    }
     public double getActionPeriod(){
         return this.actionPeriod;
     }
@@ -40,16 +43,6 @@ public abstract class ExecuteActivity implements Animate{
         return this.animationPeriod;
     }
 
-    public String log(){
-        return this.id.isEmpty() ? null :
-                String.format("%s %d %d %d", this.id, this.position.getX(), this.position.getY(), this.imageIndex);
-    }
-    public void nextImage(){
-        this.imageIndex = this.imageIndex + 1;
-    }
-    public PImage getCurrentImage(){
-        return this.images.get(this.imageIndex % this.images.size());
-    }
 
     public Action createAnimationAction(int repeatCount) {
         return new Animation(this, repeatCount);

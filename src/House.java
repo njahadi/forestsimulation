@@ -29,15 +29,7 @@ public class House implements Entity{
     public int getImageIndex(){
         return this.imageIndex;
     }
-    public String log(){
-        return this.id.isEmpty() ? null :
-                String.format("%s %d %d %d", this.id, this.position.getX(), this.position.getY(), this.imageIndex);
-    }
-    public void nextImage(){
+    public void setImageIndex(){
         this.imageIndex = this.imageIndex + 1;
     }
-    public PImage getCurrentImage(){
-        return this.images.get(this.imageIndex % this.images.size());
-    }
-
 }

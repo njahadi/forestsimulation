@@ -1,11 +1,11 @@
 import processing.core.PImage;
 import java.util.*;
 public class Obstacle implements Animate{
-    private final double animationPeriod;
     private final String id;
     private Point position;
     private final List<PImage> images;
     private int imageIndex;
+    private final double animationPeriod;
 
     public Obstacle(String id, Point position, List<PImage> images, double animationPeriod){
         this.id = id;
@@ -30,15 +30,8 @@ public class Obstacle implements Animate{
     public int getImageIndex(){
         return this.imageIndex;
     }
-    public String log(){
-        return this.id.isEmpty() ? null :
-                String.format("%s %d %d %d", this.id, this.position.getX(), this.position.getY(), this.imageIndex);
-    }
-    public void nextImage(){
+    public void setImageIndex(){
         this.imageIndex = this.imageIndex + 1;
-    }
-    public PImage getCurrentImage(){
-        return this.images.get(this.imageIndex % this.images.size());
     }
 
     public double getAnimationPeriod() {
@@ -49,7 +42,7 @@ public class Obstacle implements Animate{
         return new Animation(this, repeatCount);
     }
 
-    public void scheduleActions(EventScheduler scheduler, WorldModel world, ImageStore imageStore){
+    public void scheduleActions(EventScheduler scheduler){
         scheduler.scheduleEvent(this, this.createAnimationAction(0), this.animationPeriod);
     }
 }
