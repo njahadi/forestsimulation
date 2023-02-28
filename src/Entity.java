@@ -12,9 +12,6 @@ public interface Entity {
         return this.getId().isEmpty() ? null :
                 String.format("%s %d %d %d", this.getId(), this.getPosition().getX(), this.getPosition().getY(), this.getImageIndex());
     }
-    default void nextImage(){
-        this.setImageIndex();
-    }
     default PImage getCurrentImage(){
         return this.getImages().get(this.getImageIndex() % this.getImages().size());
     }

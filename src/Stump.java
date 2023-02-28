@@ -32,5 +32,4 @@ public class Stump implements Entity{
     public void setImageIndex(){
         this.imageIndex = this.imageIndex + 1;
     }
-
 }
