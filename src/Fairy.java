@@ -25,7 +25,7 @@ public class Fairy extends ExecuteActivity implements Movable {
     }
 
     public boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler){
-        if (adjacent(this.getPosition(), target.getPosition())) {
+        if (this.getPosition().adjacent(target.getPosition())) {
             world.removeEntity(scheduler, target);
             return true;
         } else {

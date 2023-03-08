@@ -29,7 +29,7 @@ public class DudeFull extends Dude{
     }
 
     public boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler){
-        if (adjacent(this.getPosition(), target.getPosition())) {
+        if (this.getPosition().adjacent(target.getPosition())) {
             return true;
         } else {
             Point nextPos = this.nextPosition(world, target.getPosition());

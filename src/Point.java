@@ -30,4 +30,11 @@ public final class Point {
     public int getY(){
         return this.y;
     }
+
+    public boolean adjacent(Point p)
+    {
+        return (this.x == p.x && Math.abs(this.y - p.y) == 1) ||
+                (this.y == p.y && Math.abs(this.x - p.x) == 1);
+    }
+
 }

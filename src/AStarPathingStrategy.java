@@ -8,26 +8,55 @@ public class AStarPathingStrategy implements PathingStrategy{
                                    BiPredicate<Point, Point> withinReach,
                                    Function<Point, Stream<Point>> potentialNeighbors)
     {
-        List<Point> path = new ArrayList<>();
-        Comparator<WorldNode> comp = Comparator.comparing(WorldNode::getF); //Comparator comparing WorldNodes by their f value
-        PriorityQueue<WorldNode> openList = new PriorityQueue<>(comp); //PriorityQueue to represent open list
+        PriorityQueue<WorldNode> openList =
+                new PriorityQueue<>(Comparator.comparingInt(AStarPathingStrategy::getTotal)); //PriorityQueue to represent open list
         HashSet<Point> closedList = new HashSet<>(); //HashSet to represent closed list
 
-        WorldNode first = new WorldNode(start, end, start); //first node is the starting point
-        Predicate<Point> inClosed = closedList::contains; //checks if given point is in the closed list
-        Consumer<Point> openAdd = p -> openList.add(new WorldNode(start, end, p)); //adds point to open list
+        openList.add(new WorldNode(start, end, null,0)); //first node is the starting point
 
-        openList.add(first);
+        while(!openList.isEmpty()){
+            WorldNode current = openList.remove(); //current is first point in open list
+            Point currentPos = current.getPos();
+            
+            if(withinReach.test(currentPos, end)){
+                List<Point> path = new ArrayList<>();
+                while (current != null) {
+                    path.add(0, current.getPos());
+                    current = current.getPrev();
+                }
+                path.remove(0);
+                return path;
+            }
+            closedList.add(currentPos);
 
-        while(!openList.isEmpty() && !withinReach.test(openList.peek().getPos(), end)){
-            Point current = (openList.remove()).getPos(); //current is first point in open list
-            potentialNeighbors.apply(current)
+            WorldNode fCurrent = current;
+            potentialNeighbors.apply(currentPos)
                     .filter(canPassThrough) //checks what it can pass through
-                    .filter(inClosed) //checks if in closed list
-                    .forEach(openAdd); //adds point to open list
-            closedList.add(current); //adds current to closed list (visited)
-            path.add(current); //adds current to path
+                    .filter(p -> !closedList.contains(p)) //checks if not in closed list
+                    .forEach(n -> {
+                        WorldNode neighbor = new WorldNode(n, end, fCurrent, fCurrent.getGScore()+1);
+                        if (!openList.contains(neighbor)){
+                            openList.add(neighbor);
+                        }
+                        else{
+                            WorldNode existing = openList.stream()
+                                    .filter(node -> node.equals(neighbor))
+                                    .findFirst().get();
+
+                            if(existing.getGScore() > neighbor.getGScore()){
+                                existing.setPrev(fCurrent);
+                                existing.setGScore(neighbor.getGScore());
+                            }
+                        }
+                            }
+
+                    ); //adds points to open list
         }
-        return path; //this might include the starting point, might need ot fix that
+        return Collections.emptyList();
     }
+
+    private static int getTotal(WorldNode node) {
+        return node.getGScore() + node.manhattanDistance(node.getPos(), node.getTarget());
+    }
+
 }
