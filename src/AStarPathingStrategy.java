@@ -38,16 +38,16 @@ public class AStarPathingStrategy implements PathingStrategy{
                         if (!openList.contains(neighbor)){
                             openList.add(neighbor);
                         }
-                        else{
-                            WorldNode existing = openList.stream()
-                                    .filter(node -> node.equals(neighbor))
-                                    .findFirst().get();
-
-                            if(existing.getGScore() > neighbor.getGScore()){
-                                existing.setPrev(fCurrent);
-                                existing.setGScore(neighbor.getGScore());
-                            }
-                        }
+//                        else{
+//                            WorldNode existing = openList.stream()
+//                                    .filter(node -> node.equals(neighbor))
+//                                    .findFirst().get();
+//
+//                            if(existing.getGScore() > neighbor.getGScore()){
+//                                existing.setPrev(fCurrent);
+//                                existing.setGScore(neighbor.getGScore());
+//                            }
+//                        }
                             }
 
                     ); //adds points to open list

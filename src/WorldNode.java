@@ -32,4 +32,15 @@ public class WorldNode {
     public int manhattanDistance(Point position, Point target){
         return Math.abs(position.getX() - target.getX()) + Math.abs(position.getY() - target.getY());
     }
+
+    @Override
+    public boolean equals(Object other){
+        if(other == null){
+            return false;
+        }
+        if(!this.getClass().equals(other.getClass())){
+            return false;
+        }
+        return this.position == ((WorldNode) other).getPos();
+    }
 }
