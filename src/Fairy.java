@@ -29,7 +29,14 @@ public class Fairy extends ExecuteActivity implements Movable {
             world.removeEntity(scheduler, target);
             return true;
         } else {
-            Point nextPos = this.nextPosition(world, target.getPosition());
+            PathingStrategy strat = new SingleStepPathingStrategy();
+            List<Point> path = strat.computePath(this.getPosition(), target.getPosition(),
+                    (p) -> world.withinBounds(p) && world.getOccupancyCell(p) == null,
+                    (p1, p2) -> p1.adjacent(p2),
+                    PathingStrategy.CARDINAL_NEIGHBORS
+            );
+
+            Point nextPos = path.get(0);
 
             if (!this.getPosition().equals(nextPos)) {
                 world.moveEntity(scheduler, this, nextPos);

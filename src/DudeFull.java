@@ -40,7 +40,6 @@ public class DudeFull extends Dude{
             );
 
             Point nextPos = path.get(0);
-//                    this.nextPosition(world, target.getPosition());
 
             if (!this.getPosition().equals(nextPos)) {
                 world.moveEntity(scheduler, this, nextPos);

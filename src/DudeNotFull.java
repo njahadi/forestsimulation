@@ -43,7 +43,14 @@ public class DudeNotFull extends Dude{
             ((Plant)target).decrementHealth();
             return true;
         } else {
-            Point nextPos = this.nextPosition(world, target.getPosition());
+            PathingStrategy strat = new SingleStepPathingStrategy();
+            List<Point> path = strat.computePath(this.getPosition(), target.getPosition(),
+                    (p) -> world.withinBounds(p) && world.getOccupancyCell(p) == null || world.getOccupancyCell(p).getClass() == Stump.class,
+                    (p1, p2) -> p1.adjacent(p2),
+                    PathingStrategy.CARDINAL_NEIGHBORS
+            );
+
+            Point nextPos = path.get(0);
 
             if (!this.getPosition().equals(nextPos)) {
                 world.moveEntity(scheduler, this, nextPos);

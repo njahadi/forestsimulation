@@ -9,13 +9,13 @@ public class AStarPathingStrategy implements PathingStrategy{
                                    Function<Point, Stream<Point>> potentialNeighbors)
     {
         PriorityQueue<WorldNode> openList =
-                new PriorityQueue<>(Comparator.comparingInt(AStarPathingStrategy::getTotal)); //PriorityQueue to represent open list
+                new PriorityQueue<>(Comparator.comparingInt(WorldNode::getTotal)); //PriorityQueue to represent open list
         HashSet<Point> closedList = new HashSet<>(); //HashSet to represent closed list
 
         openList.add(new WorldNode(start, end, null,0)); //first node is the starting point
 
         while(!openList.isEmpty()){
-            WorldNode current = openList.remove(); //current is first point in open list
+            WorldNode current = openList.poll(); //current is first point in open list
             Point currentPos = current.getPos();
             
             if(withinReach.test(currentPos, end)){
@@ -38,25 +38,20 @@ public class AStarPathingStrategy implements PathingStrategy{
                         if (!openList.contains(neighbor)){
                             openList.add(neighbor);
                         }
-//                        else{
-//                            WorldNode existing = openList.stream()
-//                                    .filter(node -> node.equals(neighbor))
-//                                    .findFirst().get();
-//
-//                            if(existing.getGScore() > neighbor.getGScore()){
-//                                existing.setPrev(fCurrent);
-//                                existing.setGScore(neighbor.getGScore());
-//                            }
-//                        }
+                        else{
+                            WorldNode existing = openList.stream()
+                                    .filter(node -> node.equals(neighbor))
+                                    .findAny()
+                                    .get();
+                            if(existing.getTotal() > neighbor.getTotal()){
+                                openList.remove(existing);
+                                openList.add(neighbor);
+                            }
+                        }
                             }
 
                     ); //adds points to open list
         }
         return Collections.emptyList();
     }
-
-    private static int getTotal(WorldNode node) {
-        return node.getGScore() + node.manhattanDistance(node.getPos(), node.getTarget());
-    }
-
 }

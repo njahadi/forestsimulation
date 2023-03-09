@@ -33,6 +33,10 @@ public class WorldNode {
         return Math.abs(position.getX() - target.getX()) + Math.abs(position.getY() - target.getY());
     }
 
+    public int getTotal() {
+        return this.gScore + this.manhattanDistance(this.position, this.target);
+    }
+
     @Override
     public boolean equals(Object other){
         if(other == null){
