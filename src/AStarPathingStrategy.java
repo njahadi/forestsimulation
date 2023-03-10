@@ -27,6 +27,7 @@ public class AStarPathingStrategy implements PathingStrategy{
                 path.remove(0);
                 return path;
             }
+
             closedList.add(currentPos);
 
             WorldNode fCurrent = current;

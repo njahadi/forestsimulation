@@ -32,7 +32,7 @@ public class DudeFull extends Dude{
         if (this.getPosition().adjacent(target.getPosition())) {
             return true;
         } else {
-            PathingStrategy strat = new SingleStepPathingStrategy();
+            PathingStrategy strat = new AStarPathingStrategy();
             List<Point> path = strat.computePath(this.getPosition(), target.getPosition(),
                     (p) -> world.withinBounds(p) && world.getOccupancyCell(p) == null || world.getOccupancyCell(p).getClass() == Stump.class,
                     (p1, p2) -> p1.adjacent(p2),
