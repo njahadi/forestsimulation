@@ -32,7 +32,7 @@ public class Fairy extends ExecuteActivity implements Movable {
             PathingStrategy strat = new AStarPathingStrategy();
             List<Point> path = strat.computePath(this.getPosition(), target.getPosition(),
                     (p) -> world.withinBounds(p) && world.getOccupancyCell(p) == null,
-                    (p1, p2) -> p1.adjacent(p2),
+                    (p1, p2) -> p1.adjacent(p2) || p1.equals(p2),
                     PathingStrategy.CARDINAL_NEIGHBORS
             );
             Point nextPos;

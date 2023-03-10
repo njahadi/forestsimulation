@@ -46,7 +46,7 @@ public class DudeNotFull extends Dude{
             PathingStrategy strat = new AStarPathingStrategy();
             List<Point> path = strat.computePath(this.getPosition(), target.getPosition(),
                     (p) -> world.withinBounds(p) && world.getOccupancyCell(p) == null || world.getOccupancyCell(p).getClass() == Stump.class,
-                    (p1, p2) -> p1.adjacent(p2),
+                    (p1, p2) -> p1.adjacent(p2) || p1.equals(p2),
                     PathingStrategy.CARDINAL_NEIGHBORS
             );
             Point nextPos;
