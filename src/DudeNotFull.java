@@ -49,8 +49,13 @@ public class DudeNotFull extends Dude{
                     (p1, p2) -> p1.adjacent(p2),
                     PathingStrategy.CARDINAL_NEIGHBORS
             );
-
-            Point nextPos = path.get(0);
+            Point nextPos;
+            if(!path.isEmpty()){
+                nextPos = path.get(0);
+            }
+            else{
+                nextPos = this.getPosition();
+            }
 
             if (!this.getPosition().equals(nextPos)) {
                 world.moveEntity(scheduler, this, nextPos);
