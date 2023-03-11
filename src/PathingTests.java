@@ -57,6 +57,27 @@ public class PathingTests {
     }
 
     @Test
+    public void testAStarNoPath3x3_2(){
+        boolean[][] grid = {
+                { true, true, true },
+                { true, true, false },
+                { true, false, true }
+        };
+        Point start = new Point(0, 0);
+        Point end = new Point(2, 2);
+
+        PathingStrategy ps = new AStarPathingStrategy();
+        List<Point> path = ps.computePath(
+                start, end,
+                (p) -> withinBounds(p, grid) && grid[p.getY()][p.getX()],
+                (p1, p2) -> p1.adjacent(p2) || p1.equals(p2),
+                PathingStrategy.CARDINAL_NEIGHBORS
+        );
+
+        assertEquals(0, path.size());
+    }
+
+    @Test
     public void testAStarCornerToCorner4x4(){
         boolean[][] grid = {
                 { true, true, true, true },
@@ -138,7 +159,7 @@ public class PathingTests {
                 { true, true, true }
         };
         Point start = new Point(0, 0);
-        Point end = new Point(2, 0);
+        Point end = new Point(0, 2);
 
         PathingStrategy ps = new AStarPathingStrategy();
         List<Point> path = ps.computePath(
@@ -170,7 +191,7 @@ public class PathingTests {
                 { true, true, true }
         };
         Point start = new Point(0, 0);
-        Point end = new Point(0, 2);
+        Point end = new Point(2, 0);
 
         PathingStrategy ps = new AStarPathingStrategy();
         List<Point> path = ps.computePath(
@@ -300,6 +321,39 @@ public class PathingTests {
         );
 
         assertEquals(5, path.size());
+        boolean contiguous = true;
+        for(int i = 0; i+1 < path.size(); i++){
+            Point p1 = path.get(i);
+            Point p2 = path.get(i+1);
+            if(!p1.adjacent(p2)){
+                contiguous = false;
+            }
+        }
+        assertTrue(contiguous);
+        assertTrue(path.get(0).adjacent(start));
+        assertTrue(path.get(path.size()-1).adjacent(end));
+    }
+
+    @Test
+    public void testAStarMoreObstacles4x4(){
+        boolean[][] grid = {
+                { true, true, true, true, true, true },
+                { true, true, false, false, false, true },
+                { true, true, false, false, false, false },
+                { true, true, true, true, true, true }
+        };
+        Point start = new Point(0, 1);
+        Point end = new Point(5, 3);
+
+        PathingStrategy ps = new AStarPathingStrategy();
+        List<Point> path = ps.computePath(
+                start, end,
+                (p) -> withinBounds(p, grid) && grid[p.getY()][p.getX()],
+                (p1, p2) -> p1.adjacent(p2) || p1.equals(p2),
+                PathingStrategy.CARDINAL_NEIGHBORS
+        );
+
+        assertEquals(6, path.size());
         boolean contiguous = true;
         for(int i = 0; i+1 < path.size(); i++){
             Point p1 = path.get(i);

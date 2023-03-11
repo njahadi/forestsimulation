@@ -45,6 +45,6 @@ public class WorldNode {
         if(!this.getClass().equals(other.getClass())){
             return false;
         }
-        return this.position == ((WorldNode) other).getPos();
+        return this.position.equals(((WorldNode) other).getPos());
     }
 }

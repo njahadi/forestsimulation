@@ -28,8 +28,6 @@ public class AStarPathingStrategy implements PathingStrategy{
                 return path;
             }
 
-            closedList.add(currentPos);
-
             WorldNode fCurrent = current;
             potentialNeighbors.apply(currentPos)
                     .filter(canPassThrough) //checks what it can pass through
@@ -56,6 +54,7 @@ public class AStarPathingStrategy implements PathingStrategy{
                             }
 
                     ); //adds points to open list
+            closedList.add(currentPos);
         }
         return Collections.emptyList();
     }
