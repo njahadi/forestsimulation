@@ -41,15 +41,6 @@ public class AStarPathingStrategy implements PathingStrategy{
                             if(openList.removeIf(node -> node.equals(neighbor) && node.getTotal() > neighbor.getTotal())){
                                 openList.add(neighbor);
                             }
-
-//                            WorldNode existing = openList.stream()
-//                                    .filter(node -> node.equals(neighbor))
-//                                    .findAny()
-//                                    .get();
-//                            if(existing.getTotal() > neighbor.getTotal()){
-//                                openList.remove(existing);
-//                                openList.add(neighbor);
-//                            }
                         }
                             }
 
