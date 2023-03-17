@@ -1,34 +1,26 @@
-import java.util.*;
 import processing.core.PImage;
 
-public class Fairy extends Transform implements Movable {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-    public Fairy(String id, Point position, List<PImage> images, double actionPeriod, double animationPeriod){
+public class Dinosaur extends ExecuteActivity implements Movable{
+    public Dinosaur(String id, Point position, List<PImage> images, double actionPeriod, double animationPeriod){
         super(id, position, images, actionPeriod, animationPeriod);
     }
 
-    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore){
-        Entity redFairy = new RedFairy(this.getId(), this.getPosition(), this.getImages(), this.getActionPeriod(), this.getAnimationPeriod());
-
-        world.removeEntity(scheduler, this);
-
-        world.addEntity(redFairy);
-        ((ExecuteActivity)redFairy).scheduleActions(scheduler, world, imageStore);
-        return false;
-    }
-
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler){
-        Optional<Entity> fairyTarget = world.findNearest(this.getPosition(), new ArrayList<>(List.of(Stump.class)));
+        Optional<Entity> dinoTarget = world.findNearest(this.getPosition(), new ArrayList<>(List.of(Fairy.class)));
 
-        if (fairyTarget.isPresent()) {
-            Point tgtPos = fairyTarget.get().getPosition();
+        if (dinoTarget.isPresent()) {
+            Point tgtPos = dinoTarget.get().getPosition();
 
-            if (this.moveTo(world, fairyTarget.get(), scheduler)) {
+            if (this.moveTo(world, dinoTarget.get(), scheduler)) {
 
-                Entity sapling = new Sapling(WorldModel.SAPLING_KEY + "_" + fairyTarget.get().getId(), tgtPos, imageStore.getImageList(WorldModel.SAPLING_KEY), 0);
+                Entity redFairy = new RedFairy(WorldModel.REDFAIRY_KEY + "_" + dinoTarget.get().getId(), tgtPos, imageStore.getImageList(WorldModel.REDFAIRY_KEY), WorldModel.REDFAIRY_ACTION_PERIOD, WorldModel.REDFAIRY_ANIMATION_PERIOD);
 
-                world.addEntity(sapling);
-                ((ExecuteActivity)sapling).scheduleActions(scheduler, world, imageStore);
+                world.addEntity(redFairy);
+                ((ExecuteActivity)redFairy).scheduleActions(scheduler, world, imageStore);
             }
         }
 
@@ -60,4 +52,5 @@ public class Fairy extends Transform implements Movable {
             return false;
         }
     }
+
 }

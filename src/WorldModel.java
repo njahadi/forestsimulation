@@ -43,6 +43,12 @@ public final class WorldModel {
     public static final int PROPERTY_ID = 1;
     public static final int PROPERTY_COL = 2;
     public static final int PROPERTY_ROW = 3;
+    public static final String REDFAIRY_KEY = "redfairy";
+    public static final int REDFAIRY_ANIMATION_PERIOD = 0;
+    public static final int REDFAIRY_ACTION_PERIOD= 1;
+    public static final int REDFAIRY_NUM_PROPERTIES = 2;
+    public static final String GRAVESTONE_KEY = "gravestone";
+    private static final int GRAVESTONE_NUM_PROPERTIES = 0;
 
     public WorldModel() {
 

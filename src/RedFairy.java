@@ -1,34 +1,26 @@
-import java.util.*;
 import processing.core.PImage;
 
-public class Fairy extends Transform implements Movable {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-    public Fairy(String id, Point position, List<PImage> images, double actionPeriod, double animationPeriod){
+public class RedFairy extends ExecuteActivity implements Movable{
+    public RedFairy(String id, Point position, List<PImage> images, double actionPeriod, double animationPeriod){
         super(id, position, images, actionPeriod, animationPeriod);
     }
 
-    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore){
-        Entity redFairy = new RedFairy(this.getId(), this.getPosition(), this.getImages(), this.getActionPeriod(), this.getAnimationPeriod());
-
-        world.removeEntity(scheduler, this);
-
-        world.addEntity(redFairy);
-        ((ExecuteActivity)redFairy).scheduleActions(scheduler, world, imageStore);
-        return false;
-    }
-
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler){
-        Optional<Entity> fairyTarget = world.findNearest(this.getPosition(), new ArrayList<>(List.of(Stump.class)));
+        Optional<Entity> redFairyTarget = world.findNearest(this.getPosition(), new ArrayList<>(List.of(Dude.class)));
 
-        if (fairyTarget.isPresent()) {
-            Point tgtPos = fairyTarget.get().getPosition();
+        if (redFairyTarget.isPresent()) {
+            Point tgtPos = redFairyTarget.get().getPosition();
 
-            if (this.moveTo(world, fairyTarget.get(), scheduler)) {
+            if (this.moveTo(world, redFairyTarget.get(), scheduler)) {
 
-                Entity sapling = new Sapling(WorldModel.SAPLING_KEY + "_" + fairyTarget.get().getId(), tgtPos, imageStore.getImageList(WorldModel.SAPLING_KEY), 0);
+                Entity gravestone = new Gravestone(WorldModel.GRAVESTONE_KEY + "_" + redFairyTarget.get().getId(), tgtPos, imageStore.getImageList(WorldModel.GRAVESTONE_KEY));
 
-                world.addEntity(sapling);
-                ((ExecuteActivity)sapling).scheduleActions(scheduler, world, imageStore);
+                world.addEntity(gravestone);
+                ((ExecuteActivity)gravestone).scheduleActions(scheduler, world, imageStore);
             }
         }
 
@@ -60,4 +52,5 @@ public class Fairy extends Transform implements Movable {
             return false;
         }
     }
+
 }
