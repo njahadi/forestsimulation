@@ -44,7 +44,7 @@ public final class WorldModel {
     public static final int PROPERTY_ROW = 3;
     public static final String REDFAIRY_KEY = "redfairy";
     public static final String GRAVESTONE_KEY = "gravestone";
-    public static final String CRATER_KEY = "dirt";
+    public static final String CRATER_KEY = "crater";
 
     public WorldModel() {
 
