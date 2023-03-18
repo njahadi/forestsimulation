@@ -1,20 +1,10 @@
 import java.util.*;
 import processing.core.PImage;
 
-public class Fairy extends Transform implements Movable {
+public class Fairy extends ExecuteActivity implements Movable {
 
     public Fairy(String id, Point position, List<PImage> images, double actionPeriod, double animationPeriod){
         super(id, position, images, actionPeriod, animationPeriod);
-    }
-
-    public boolean transform(WorldModel world, EventScheduler scheduler, ImageStore imageStore){
-        Entity redFairy = new RedFairy(this.getId(), this.getPosition(), this.getImages(), this.getActionPeriod(), this.getAnimationPeriod());
-
-        world.removeEntity(scheduler, this);
-
-        world.addEntity(redFairy);
-        ((ExecuteActivity)redFairy).scheduleActions(scheduler, world, imageStore);
-        return false;
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler){
