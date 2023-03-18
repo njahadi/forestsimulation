@@ -14,6 +14,10 @@ public final class WorldModel {
     private Entity[][] occupancy;
     private Set<Entity> entities;
 
+    public static final String DINOSAUR_KEY = "dinosaur";
+    public static final int DINOSAUR_ACTION_PERIOD = 0;
+    public static final int DINOSAUR_ANIMATION_PERIOD = 1;
+    public static final int DINOSAUR_NUM_PROPERTIES = 2;
     public static final String SAPLING_KEY = "sapling";
     private static final int SAPLING_HEALTH = 0;
     private static final int SAPLING_NUM_PROPERTIES = 1;
@@ -243,7 +247,7 @@ public final class WorldModel {
         }
     }
 
-    private void tryAddEntity(Entity entity) {
+    void tryAddEntity(Entity entity) {
         if (this.isOccupied(entity.getPosition())) {
             // arguably the wrong type of exception, but we are not
             // defining our own exceptions yet

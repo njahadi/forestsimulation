@@ -81,6 +81,11 @@ public final class VirtualWorld extends PApplet {
             }
         }
 
+        Dinosaur dino = new Dinosaur("dinosaur0" , pressed,  this.imageStore.getImageList("dinosaur"), WorldModel.DINOSAUR_ACTION_PERIOD, WorldModel.DINOSAUR_ANIMATION_PERIOD);
+        this.world.tryAddEntity(dino);
+        dino.scheduleActions(this.scheduler, this.world, this.imageStore);
+
+
     }
 
     public void scheduleActions(WorldModel world, EventScheduler scheduler, ImageStore imageStore) {
