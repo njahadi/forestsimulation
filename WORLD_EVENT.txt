@@ -1,0 +1,7 @@
+1. Click the mouse in open space
+2. The event should create a dirt crater and also spawn in the “dinosaur” entity at the point in which the mouse pressed.
+3. The dinosaur should be chasing regular fairies and turning them into evil, red fairies. These red fairies should chase DudeFulls and DudeNotFulls and turn them into gravestones upon reach.
+4. The new entities are dinosaurs and red fairies. Dinosaurs chase regular fairies, and red fairies chase both types of dudes.
+5. See below
+    Justin - images, graphic design, writing functionality in mousePressed function. Debugging in initial function creation
+    Nickaan - created all new classes and implemented their functionalities, as well as altered existing functionalities
