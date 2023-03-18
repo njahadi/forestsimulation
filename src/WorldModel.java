@@ -13,11 +13,6 @@ public final class WorldModel {
     private Background[][] background;
     private Entity[][] occupancy;
     private Set<Entity> entities;
-
-    public static final String DINOSAUR_KEY = "dinosaur";
-    public static final int DINOSAUR_ACTION_PERIOD = 0;
-    public static final int DINOSAUR_ANIMATION_PERIOD = 1;
-    public static final int DINOSAUR_NUM_PROPERTIES = 2;
     public static final String SAPLING_KEY = "sapling";
     private static final int SAPLING_HEALTH = 0;
     private static final int SAPLING_NUM_PROPERTIES = 1;
@@ -26,10 +21,10 @@ public final class WorldModel {
     private static final int DUDE_ANIMATION_PERIOD = 1;
     private static final int DUDE_LIMIT = 2;
     private static final int DUDE_NUM_PROPERTIES = 3;
-    private static final String FAIRY_KEY = "fairy";
-    private static final int FAIRY_ANIMATION_PERIOD = 0;
-    private static final int FAIRY_ACTION_PERIOD = 1;
-    private static final int FAIRY_NUM_PROPERTIES = 2;
+    public static final String FAIRY_KEY = "fairy";
+    public static final int FAIRY_ANIMATION_PERIOD = 0;
+    public static final int FAIRY_ACTION_PERIOD = 1;
+    public static final int FAIRY_NUM_PROPERTIES = 2;
     public static final String TREE_KEY = "tree";
     private static final int TREE_ANIMATION_PERIOD = 0;
     private static final int TREE_ACTION_PERIOD = 1;
@@ -48,11 +43,7 @@ public final class WorldModel {
     public static final int PROPERTY_COL = 2;
     public static final int PROPERTY_ROW = 3;
     public static final String REDFAIRY_KEY = "redfairy";
-    public static final int REDFAIRY_ANIMATION_PERIOD = 0;
-    public static final int REDFAIRY_ACTION_PERIOD= 1;
-    public static final int REDFAIRY_NUM_PROPERTIES = 2;
     public static final String GRAVESTONE_KEY = "gravestone";
-    private static final int GRAVESTONE_NUM_PROPERTIES = 0;
 
     public WorldModel() {
 

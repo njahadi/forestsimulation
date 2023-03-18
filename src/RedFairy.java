@@ -10,7 +10,7 @@ public class RedFairy extends ExecuteActivity implements Movable{
     }
 
     public void executeActivity(WorldModel world, ImageStore imageStore, EventScheduler scheduler){
-        Optional<Entity> redFairyTarget = world.findNearest(this.getPosition(), new ArrayList<>(List.of(Dude.class)));
+        Optional<Entity> redFairyTarget = world.findNearest(this.getPosition(), new ArrayList<>(List.of(DudeFull.class, DudeNotFull.class)));
 
         if (redFairyTarget.isPresent()) {
             Point tgtPos = redFairyTarget.get().getPosition();
@@ -20,7 +20,6 @@ public class RedFairy extends ExecuteActivity implements Movable{
                 Entity gravestone = new Gravestone(WorldModel.GRAVESTONE_KEY + "_" + redFairyTarget.get().getId(), tgtPos, imageStore.getImageList(WorldModel.GRAVESTONE_KEY));
 
                 world.addEntity(gravestone);
-                ((ExecuteActivity)gravestone).scheduleActions(scheduler, world, imageStore);
             }
         }
 

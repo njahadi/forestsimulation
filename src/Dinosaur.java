@@ -17,7 +17,7 @@ public class Dinosaur extends ExecuteActivity implements Movable{
 
             if (this.moveTo(world, dinoTarget.get(), scheduler)) {
 
-                Entity redFairy = new RedFairy(WorldModel.REDFAIRY_KEY + "_" + dinoTarget.get().getId(), tgtPos, imageStore.getImageList(WorldModel.REDFAIRY_KEY), WorldModel.REDFAIRY_ACTION_PERIOD, WorldModel.REDFAIRY_ANIMATION_PERIOD);
+                Entity redFairy = new RedFairy(WorldModel.REDFAIRY_KEY + "_" + dinoTarget.get().getId(), tgtPos, imageStore.getImageList(WorldModel.REDFAIRY_KEY), 0.7,0.2);
 
                 world.addEntity(redFairy);
                 ((ExecuteActivity)redFairy).scheduleActions(scheduler, world, imageStore);
