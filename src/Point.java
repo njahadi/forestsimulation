@@ -2,8 +2,8 @@
  * A simple class representing a location in 2D space.
  */
 public final class Point {
-    private final int x;
-    private final int y;
+    private int x;
+    private int y;
 
     public Point(int x, int y) {
         this.x = x;
@@ -29,6 +29,12 @@ public final class Point {
     }
     public int getY(){
         return this.y;
+    }
+    public void setX(int val){
+        this.x = val;
+    }
+    public void setY(int val){
+        this.y = val;
     }
 
     public boolean adjacent(Point p)

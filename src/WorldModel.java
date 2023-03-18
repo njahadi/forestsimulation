@@ -44,6 +44,7 @@ public final class WorldModel {
     public static final int PROPERTY_ROW = 3;
     public static final String REDFAIRY_KEY = "redfairy";
     public static final String GRAVESTONE_KEY = "gravestone";
+    public static final String CRATER_KEY = "dirt";
 
     public WorldModel() {
 
@@ -65,8 +66,8 @@ public final class WorldModel {
         return this.background[pos.getY()][pos.getX()];
     }
 
-    public void setBackgroundCell(Point pos, Background background) {
-        this.background[pos.getY()][pos.getX()] = background;
+    public void setBackgroundCell(Point pos, ImageStore imageStore) {
+        this.background[pos.getY()][pos.getX()] = new Background(CRATER_KEY, imageStore.getImageList(CRATER_KEY));
     }
 
     public Optional<PImage> getBackgroundImage(Point pos) {

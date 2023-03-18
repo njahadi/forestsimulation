@@ -81,6 +81,20 @@ public final class VirtualWorld extends PApplet {
             }
         }
 
+        int x = pressed.getX();
+        int y = pressed.getY();
+        int[][] offsets = {
+                        {-1,-1}, {-1,0}, {-1,1},
+                {-2,0}, {0,-1}, {0,0}, {0,1},
+                {-2,1},  {1,0},  {1,1},
+                {-1,2}, {0,2}
+
+        };
+        for (int[] offset : offsets) {
+            int i = x + offset[0];
+            int j = y + offset[1];
+            this.world.setBackgroundCell(new Point(i,j), imageStore);
+        }
 
         Dinosaur dino = new Dinosaur("dinosaur0" , pressed,  this.imageStore.getImageList("dinosaur"), 0.4,0.2);
         this.world.tryAddEntity(dino);
