@@ -13,5 +13,4 @@ public abstract class Dude extends Transform implements Movable{
     public int getResourceLimit(){
         return this.resourceLimit;
     }
-
 }

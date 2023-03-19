@@ -36,7 +36,7 @@ public class DudeNotFull extends Dude{
             scheduler.scheduleEvent(this, this.createActivityAction(world, imageStore), this.getActionPeriod());
         }
     }
-
+    @Override
     public boolean moveTo(WorldModel world, Entity target, EventScheduler scheduler){
         if (this.getPosition().adjacent(target.getPosition())) {
             this.resourceCount += 1;
